@@ -12,8 +12,8 @@ export default function Button({
   const base = "px-6 py-2 rounded-full font-mont font-semibold transition flex items-center justify-center gap-2";
   
   const variants = {
-    primary: "bg-orange-600 text-white hover:bg-orange-500  hover:scale-105",
-    secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
+    primary: "bg-orange-500 text-white hover:bg-orange-600  hover:scale-105",
+    secondary: "text-orange-600 border-orange-600 border-1 hover:bg-orange-500 hover:text-white hover:scale-105",
     outline: "border border-gray-400 text-gray-800 hover:bg-gray-100",
     danger: "bg-red-600 text-white hover:bg-red-700",
   };

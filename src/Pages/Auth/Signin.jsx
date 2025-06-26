@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Container from "../../Components/Layout/Container";
-import LoginImage from "../../assets/Images/login.jpg";
+import LoginImage from "../../assets/Images/login2.jpg";
 import Input from "../../Components/Common/Input";
 import Button from "../../Components/Common/Button";
 import Navbar from "../../Components/Navbar/Navbar";
 import OtpInput from "../../Components/Otp/OtpInput";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
-export default function Signup() {
+export default function Signin() {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: "",
-        fullName: "",
         password: "",
-        confirmPassword: "",
     });
     const [loading, setloading] = useState(false);
     const [vertifyOtp, setVerifyOtp] = useState(false);
@@ -29,12 +29,15 @@ export default function Signup() {
         console.log(userData);
         setUserData({
             email: "",
-            fullName: "",
             password: "",
-            confirmPassword: "",
         });
         toast.success("OTP sent to your mail");
         setVerifyOtp(true);
+    };
+
+    const handleOtpVerificaiton = (otp) => {
+        toast.success("OTP Verification Successful");
+        navigate("/");
     };
 
     return (
@@ -47,8 +50,8 @@ export default function Signup() {
                     </div>
                 </div>
                 <div className="w-1/2  px-20 flex flex-col justify-center items-center gap-5">
-                    <h1 className="font-bold text-3xl text-center">Organized? Overwhelmed? Or need a break?</h1>
-                    <p>Discover the perfect class schedule for every mood!</p>
+                    <h1 className="font-bold text-3xl text-center">Welcome Back, We've Missed You!</h1>
+                    <p>Login to your account</p>
 
                     {!vertifyOtp ? (
                         <form className="w-full flex flex-col justify-center gap-5 px-12" onSubmit={handleSubmit}>
@@ -59,13 +62,7 @@ export default function Signup() {
                                 value={userData.email}
                                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                             />
-                            <Input
-                                placeholder={"Full Name"}
-                                name={"fullName"}
-                                type="text"
-                                value={userData.fullName}
-                                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                            />
+
                             <Input
                                 placeholder={"Password"}
                                 name={"password"}
@@ -73,18 +70,7 @@ export default function Signup() {
                                 value={userData.password}
                                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                             />
-                            <Input
-                                placeholder={"Confirm password"}
-                                name={"confirmPassword"}
-                                type="password"
-                                value={userData.confirmPassword}
-                                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                                error={
-                                    userData.confirmPassword && userData.password !== userData.confirmPassword
-                                        ? "Oops! The passwords don’t match."
-                                        : ""
-                                }
-                            />
+
                             <Button type="submit" className="">
                                 Get Started
                             </Button>
@@ -99,7 +85,7 @@ export default function Signup() {
                             </div>
                         </form>
                     ) : (
-                        <OtpInput />
+                        <OtpInput onSubmit={handleOtpVerificaiton} />
                     )}
                 </div>
             </Container>
