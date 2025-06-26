@@ -6,8 +6,13 @@ import Button from "../../Components/Common/Button";
 import Navbar from "../../Components/Navbar/Navbar";
 import OtpInput from "../../Components/Otp/OtpInput";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated } from "../../Redux/Slices/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: "",
         fullName: "",
@@ -35,6 +40,29 @@ export default function Signup() {
         });
         toast.success("OTP sent to your mail");
         setVerifyOtp(true);
+    };
+
+    const handleOtpVerificaiton = (otp) => {
+            try {
+    // You might want to validate OTP here (e.g., API call)
+    toast.success("OTP Verification Successful");
+
+    // Update auth state
+    dispatch(setIsAuthenticated(true));
+
+    // Navigate to home
+    navigate("/");
+  } catch (error) {
+    toast.error("OTP verification failed. Please try again.");
+    console.error(error);
+  }
+        };
+
+    const handleGoogleLogin = () => {
+        toast.info("Comming Soon");
+    };
+    const handleFaceBookLogin = () => {
+        toast.info("Comming Soon");
     };
 
     return (
@@ -90,16 +118,16 @@ export default function Signup() {
                             </Button>
                             <p className="flex justify-center">Or connect with</p>
                             <div className="w-full flex justify-between ">
-                                <Button variant="secondary" className="w-48">
+                                <Button type="button" variant="secondary" className="w-48" onClick={handleGoogleLogin}>
                                     Google
                                 </Button>
-                                <Button variant="secondary" className="w-48 ">
+                                <Button type="button" variant="secondary" className="w-48  " onClick={handleFaceBookLogin}>
                                     Facebook
                                 </Button>
                             </div>
                         </form>
                     ) : (
-                        <OtpInput />
+                        <OtpInput onSubmit={handleOtpVerificaiton}/>
                     )}
                 </div>
             </Container>

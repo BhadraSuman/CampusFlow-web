@@ -6,10 +6,15 @@ import Button from "../../Components/Common/Button";
 import Navbar from "../../Components/Navbar/Navbar";
 import OtpInput from "../../Components/Otp/OtpInput";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { setIsAuthenticated } from "../../Redux/Slices/AuthSlice";
+import { useDispatch } from "react-redux";
 
-export default function Signin() {
+
+
+export default function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [userData, setUserData] = useState({
         email: "",
         password: "",
@@ -36,9 +41,28 @@ export default function Signin() {
     };
 
     const handleOtpVerificaiton = (otp) => {
-        toast.success("OTP Verification Successful");
-        navigate("/");
+        try {
+    // You might want to validate OTP here (e.g., API call)
+    toast.success("OTP Verification Successful");
+
+    // Update auth state
+    dispatch(setIsAuthenticated(true));
+
+    // Navigate to home
+    navigate("/");
+  } catch (error) {
+    toast.error("OTP verification failed. Please try again.");
+    console.error(error);
+  }
+        
     };
+
+    const handleGoogleLogin = ()=>{
+        toast.info('Comming Soon')
+    }
+    const handleFaceBookLogin = ()=>{
+        toast.info('Comming Soon')
+    }
 
     return (
         <>
@@ -76,10 +100,10 @@ export default function Signin() {
                             </Button>
                             <p className="flex justify-center">Or connect with</p>
                             <div className="w-full flex justify-between ">
-                                <Button variant="secondary" className="w-48">
+                                <Button type='button' variant="secondary" className="w-48" onClick={handleGoogleLogin}>
                                     Google
                                 </Button>
-                                <Button variant="secondary" className="w-48 ">
+                                <Button type='button' variant="secondary" className="w-48  " onClick={handleFaceBookLogin}>
                                     Facebook
                                 </Button>
                             </div>

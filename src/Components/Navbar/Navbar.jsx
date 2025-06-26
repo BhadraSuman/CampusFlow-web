@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
     const location = useLocation();
@@ -12,14 +12,14 @@ export default function Navbar() {
                     {location.pathname == "/signup" ? (
                         <li>
                             Already a user ?
-                            <Link to="/signin" className="hover:underline  ">
-                                Sign in
+                            <Link to="/login" className="hover:underline font-semibold pl-2">
+                                Login in
                             </Link>
                         </li>
                     ) : (
                         <li>
                             Don't have and account ?
-                            <Link to="/signup" className="hover:underline  ">
+                            <Link to="/signup" className="hover:underline font-semibold pl-2">
                                 Sign up
                             </Link>
                         </li>

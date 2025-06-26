@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import Button from "../Common/Button";
-import { useNavigate } from "react-router";
 
 export default function OtpInput({ length = 6, onSubmit }) {
     const [otp, setOtp] = useState(Array(length).fill(""));
